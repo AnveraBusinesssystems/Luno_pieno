@@ -60,4 +60,18 @@ test("media slots use centered, crop-safe image and video framing", async () => 
   assert.match(pagesHtml, /data-media-slot="hero" data-media-type="image"/);
   assert.match(pagesHtml, /hero--has-media/);
   assert.match(pagesHtml, /class="media-fill"[^>]*hero-two-models-yacht\.jpg/);
+  assert.equal((pagesHtml.match(/class="media-fill"/g) ?? []).length, 9);
+
+  for (const asset of [
+    "product-essential-tees.jpg",
+    "product-merino-navy.jpg",
+    "product-merino-forest.jpg",
+    "craft-sewing-detail.jpg",
+    "editorial-riviera-scooter.jpg",
+    "editorial-sunset-terrace.jpg",
+    "community-white-tee.jpg",
+    "community-navy-knit.jpg",
+  ]) {
+    assert.match(pagesHtml, new RegExp(asset.replace(".", "\\.")));
+  }
 });

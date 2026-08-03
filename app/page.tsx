@@ -102,39 +102,53 @@ const mediaSlots = {
     position: "50% 68%",
   },
   products: [
-    { type: "image", src: "", alt: "The Essential Tee", position: "50% 50%" },
-    { type: "image", src: "", alt: "The Cotton Polo", position: "50% 50%" },
-    { type: "image", src: "", alt: "The Merino Sweater", position: "50% 50%" },
+    {
+      type: "image",
+      src: "/media/product-essential-tees.jpg",
+      alt: "White and navy LUNO PIENO essential tees with leather labels",
+      position: "50% 50%",
+    },
+    {
+      type: "image",
+      src: "/media/product-merino-navy.jpg",
+      alt: "Navy LUNO PIENO merino sweater",
+      position: "50% 50%",
+    },
+    {
+      type: "image",
+      src: "/media/product-merino-forest.jpg",
+      alt: "Forest green LUNO PIENO merino sweater",
+      position: "50% 50%",
+    },
   ],
   craft: {
-    type: "video",
-    src: "",
-    poster: "",
-    alt: "LUNO PIENO garment construction and finishing",
+    type: "image",
+    src: "/media/craft-sewing-detail.jpg",
+    alt: "Close-up of a LUNO PIENO garment being sewn",
     position: "50% 50%",
   },
   editorialMain: {
     type: "image",
-    src: "",
-    alt: "LUNO PIENO editorial story in an Italian town",
-    position: "50% 50%",
+    src: "/media/editorial-riviera-scooter.jpg",
+    alt: "Woman wearing LUNO PIENO knitwear beside a scooter on the Riviera",
+    position: "50% 48%",
   },
   editorialSmall: {
     type: "image",
-    src: "",
-    alt: "LUNO PIENO evening courtyard story",
-    position: "50% 50%",
+    src: "/media/editorial-sunset-terrace.jpg",
+    alt: "LUNO PIENO evening story overlooking the coast at sunset",
+    position: "50% 46%",
   },
   communityOne: {
     type: "image",
-    src: "",
-    alt: "Community member wearing a white LUNO PIENO tee",
+    src: "/media/community-white-tee.jpg",
+    alt: "Community member wearing a white LUNO PIENO tee at sunset",
     position: "50% 50%",
   },
   communityTwo: {
     type: "image",
-    src: "",
-    alt: "Community member wearing navy LUNO PIENO merino",
+    src: "/media/community-navy-knit.jpg",
+    alt: "Community member wearing navy LUNO PIENO merino on a boat",
     position: "50% 50%",
   },
 } satisfies {
@@ -148,8 +162,8 @@ const mediaSlots = {
 };
 
 const products = [
-  { name: "The Essential Tee", detail: "White · Premium cotton", tone: "chalk" },
-  { name: "The Cotton Polo", detail: "Sand · Made in Portugal", tone: "sand" },
+  { name: "The Essential Tee", detail: "White & navy · Premium cotton", tone: "chalk" },
+  { name: "The Merino Sweater", detail: "Navy · Made in Switzerland", tone: "sand" },
   { name: "The Merino Sweater", detail: "Forest · Made in Switzerland", tone: "forest" },
 ];
 
@@ -319,8 +333,8 @@ export default function Home() {
             <div className="editorial-story editorial-story--moon">
               <span className="editorial-moon" aria-hidden="true" />
               <p className="eyebrow eyebrow--light">Field note 01</p>
-              <h3>Moon over<br />St. Moritz</h3>
-              <span>December 2024</span>
+              <h3>Days on<br />the Riviera</h3>
+              <span>Summer 2025</span>
             </div>
             <MediaPlaceholder
               className="editorial-small"
