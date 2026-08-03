@@ -57,6 +57,7 @@ test("media slots use centered, crop-safe image and video framing", async () => 
 
   assert.match(page, /<video[\s\S]*autoPlay[\s\S]*muted[\s\S]*loop[\s\S]*playsInline/);
   assert.match(page, /position:\s*"50% 50%"/);
-  assert.match(pagesHtml, /data-media-slot="hero" data-media-type="video"/);
-  assert.match(pagesHtml, /hero--dynamic-fallback/);
+  assert.match(pagesHtml, /data-media-slot="hero" data-media-type="image"/);
+  assert.match(pagesHtml, /hero--has-media/);
+  assert.match(pagesHtml, /class="media-fill"[^>]*hero-two-models-yacht\.jpg/);
 });

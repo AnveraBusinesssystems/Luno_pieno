@@ -96,11 +96,10 @@ function MediaPlaceholder({
 // default, and can use a custom focal point such as "50% 30%".
 const mediaSlots = {
   hero: {
-    type: "video",
-    src: "",
-    poster: "",
-    alt: "LUNO PIENO campaign on a yacht at golden hour",
-    position: "50% 50%",
+    type: "image",
+    src: "/media/hero-two-models-yacht.jpg",
+    alt: "Two models wearing LUNO PIENO essentials on a yacht at golden hour",
+    position: "50% 68%",
   },
   products: [
     { type: "image", src: "", alt: "The Essential Tee", position: "50% 50%" },
@@ -201,7 +200,7 @@ export default function Home() {
 
           <div className="hero-media-label">
             <span>Campaign image 01</span>
-            <span>Greek yacht · golden hour · landscape 16:9</span>
+            <span>Greek yacht · golden hour · editorial crop</span>
           </div>
 
           <div className="hero-copy">
