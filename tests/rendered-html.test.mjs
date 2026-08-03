@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render() {
@@ -37,4 +38,25 @@ test("server-renders the LUNO PIENO homepage", async () => {
   assert.match(html, /Worn by the community/);
   assert.match(html, /\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
+});
+
+test("media slots use centered, crop-safe image and video framing", async () => {
+  const [page, appCss, pagesHtml, pagesCss] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../index.html", import.meta.url), "utf8"),
+    readFile(new URL("../github-pages.css", import.meta.url), "utf8"),
+  ]);
+
+  for (const css of [appCss, pagesCss]) {
+    assert.match(css, /\.media-fill\s*\{[^}]*object-fit:\s*cover;/s);
+    assert.match(css, /object-position:\s*var\(--media-position,\s*50% 50%\)/);
+    assert.match(css, /\.hero--dynamic-fallback \.hero-sun/);
+    assert.match(css, /prefers-reduced-motion:\s*reduce/);
+  }
+
+  assert.match(page, /<video[\s\S]*autoPlay[\s\S]*muted[\s\S]*loop[\s\S]*playsInline/);
+  assert.match(page, /position:\s*"50% 50%"/);
+  assert.match(pagesHtml, /data-media-slot="hero" data-media-type="video"/);
+  assert.match(pagesHtml, /hero--dynamic-fallback/);
 });

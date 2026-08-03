@@ -1,10 +1,66 @@
+import type { CSSProperties } from "react";
+
+type MediaAsset = {
+  type: "image" | "video";
+  src: string;
+  alt: string;
+  poster?: string;
+  position?: string;
+};
+
 type PlaceholderProps = {
   className?: string;
   number: string;
   title: string;
   note: string;
   dark?: boolean;
+  media?: MediaAsset;
 };
+
+function CoverMedia({
+  media,
+  priority = false,
+}: {
+  media?: MediaAsset;
+  priority?: boolean;
+}) {
+  if (!media?.src) {
+    return null;
+  }
+
+  const style = {
+    "--media-position": media.position ?? "50% 50%",
+  } as CSSProperties;
+
+  if (media.type === "video") {
+    return (
+      <video
+        className="media-fill"
+        style={style}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload={priority ? "auto" : "metadata"}
+        poster={media.poster || undefined}
+        aria-label={media.alt}
+        disablePictureInPicture
+      >
+        <source src={media.src} />
+      </video>
+    );
+  }
+
+  return (
+    <img
+      className="media-fill"
+      style={style}
+      src={media.src}
+      alt={media.alt}
+      loading={priority ? "eager" : "lazy"}
+    />
+  );
+}
 
 function MediaPlaceholder({
   className = "",
@@ -12,21 +68,85 @@ function MediaPlaceholder({
   title,
   note,
   dark = false,
+  media,
 }: PlaceholderProps) {
+  const hasMedia = Boolean(media?.src);
+
   return (
     <div
-      className={`media-placeholder ${dark ? "media-placeholder--dark" : ""} ${className}`}
-      aria-label={`${title}. ${note}`}
+      className={`media-placeholder ${dark ? "media-placeholder--dark" : ""} ${hasMedia ? "media-placeholder--has-media" : ""} ${className}`}
+      aria-label={hasMedia ? undefined : `${title}. ${note}`}
     >
-      <span className="placeholder-number">{number}</span>
-      <span className="placeholder-cross" aria-hidden="true" />
-      <div className="placeholder-copy">
-        <span>{title}</span>
-        <small>{note}</small>
-      </div>
+      <CoverMedia media={media} />
+      {!hasMedia && (
+        <>
+          <span className="placeholder-number">{number}</span>
+          <span className="placeholder-cross" aria-hidden="true" />
+          <div className="placeholder-copy">
+            <span>{title}</span>
+            <small>{note}</small>
+          </div>
+        </>
+      )}
     </div>
   );
 }
+
+// Add final media paths here. Every slot crops to its frame, stays centered by
+// default, and can use a custom focal point such as "50% 30%".
+const mediaSlots = {
+  hero: {
+    type: "video",
+    src: "",
+    poster: "",
+    alt: "LUNO PIENO campaign on a yacht at golden hour",
+    position: "50% 50%",
+  },
+  products: [
+    { type: "image", src: "", alt: "The Essential Tee", position: "50% 50%" },
+    { type: "image", src: "", alt: "The Cotton Polo", position: "50% 50%" },
+    { type: "image", src: "", alt: "The Merino Sweater", position: "50% 50%" },
+  ],
+  craft: {
+    type: "video",
+    src: "",
+    poster: "",
+    alt: "LUNO PIENO garment construction and finishing",
+    position: "50% 50%",
+  },
+  editorialMain: {
+    type: "image",
+    src: "",
+    alt: "LUNO PIENO editorial story in an Italian town",
+    position: "50% 50%",
+  },
+  editorialSmall: {
+    type: "image",
+    src: "",
+    alt: "LUNO PIENO evening courtyard story",
+    position: "50% 50%",
+  },
+  communityOne: {
+    type: "image",
+    src: "",
+    alt: "Community member wearing a white LUNO PIENO tee",
+    position: "50% 50%",
+  },
+  communityTwo: {
+    type: "image",
+    src: "",
+    alt: "Community member wearing navy LUNO PIENO merino",
+    position: "50% 50%",
+  },
+} satisfies {
+  hero: MediaAsset;
+  products: MediaAsset[];
+  craft: MediaAsset;
+  editorialMain: MediaAsset;
+  editorialSmall: MediaAsset;
+  communityOne: MediaAsset;
+  communityTwo: MediaAsset;
+};
 
 const products = [
   { name: "The Essential Tee", detail: "White · Premium cotton", tone: "chalk" },
@@ -35,6 +155,8 @@ const products = [
 ];
 
 export default function Home() {
+  const heroHasMedia = Boolean(mediaSlots.hero.src);
+
   return (
     <div className="site-shell">
       <div className="announcement">
@@ -64,7 +186,11 @@ export default function Home() {
       </header>
 
       <main id="top">
-        <section className="hero" aria-labelledby="hero-title">
+        <section
+          className={`hero ${heroHasMedia ? "hero--has-media" : "hero--dynamic-fallback"}`}
+          aria-labelledby="hero-title"
+        >
+          <CoverMedia media={mediaSlots.hero} priority />
           <div className="hero-art" aria-hidden="true">
             <span className="hero-sun" />
             <span className="hero-horizon" />
@@ -116,11 +242,16 @@ export default function Home() {
             {products.map((product, index) => (
               <article className="product" key={product.name}>
                 <div className={`product-visual product-visual--${product.tone}`}>
-                  <span className="product-silhouette" aria-hidden="true" />
-                  <div className="product-placeholder-label">
-                    <span>Product image 0{index + 1}</span>
-                    <small>Front view · transparent or tonal background · 4:5</small>
-                  </div>
+                  <CoverMedia media={mediaSlots.products[index]} />
+                  {!mediaSlots.products[index].src && (
+                    <>
+                      <span className="product-silhouette" aria-hidden="true" />
+                      <div className="product-placeholder-label">
+                        <span>Product image 0{index + 1}</span>
+                        <small>Front view · transparent or tonal background · 4:5</small>
+                      </div>
+                    </>
+                  )}
                   <button type="button" className="quick-add" aria-label={`Quick add ${product.name}`}>
                     Quick add
                   </button>
@@ -144,6 +275,7 @@ export default function Home() {
             title="Craft film / process image"
             note="Hands, merino texture, woven labels · horizontal 3:2"
             dark
+            media={mediaSlots.craft}
           />
           <div className="craft-copy">
             <p className="eyebrow eyebrow--light">Two origins. One standard.</p>
@@ -183,6 +315,7 @@ export default function Home() {
               number="05"
               title="Italian town / cycling"
               note="Movement, warm stone, midday light · portrait 4:5"
+              media={mediaSlots.editorialMain}
             />
             <div className="editorial-story editorial-story--moon">
               <span className="editorial-moon" aria-hidden="true" />
@@ -196,6 +329,7 @@ export default function Home() {
               title="Courtyard / wine"
               note="Candlelight, texture, candid atmosphere · 4:3"
               dark
+              media={mediaSlots.editorialSmall}
             />
           </div>
         </section>
@@ -214,6 +348,7 @@ export default function Home() {
             number="07"
             title="Community portrait"
             note="Woman in white tee · poolside · portrait 4:5"
+            media={mediaSlots.communityOne}
           />
           <MediaPlaceholder
             className="community-media community-media--two"
@@ -221,6 +356,7 @@ export default function Home() {
             title="Community portrait"
             note="Navy merino · rocky coast · portrait 4:5"
             dark
+            media={mediaSlots.communityTwo}
           />
         </section>
 

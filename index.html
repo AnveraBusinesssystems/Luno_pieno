@@ -41,7 +41,7 @@
     </header>
 
     <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
+      <section class="hero hero--dynamic-fallback" data-media-slot="hero" data-media-type="video" aria-labelledby="hero-title">
         <div class="hero-art" aria-hidden="true">
           <span class="hero-sun"></span>
           <span class="hero-horizon"></span>
@@ -87,7 +87,7 @@
 
         <div class="product-grid" id="collection">
           <article class="product">
-            <div class="product-visual product-visual--chalk">
+            <div class="product-visual product-visual--chalk" data-media-slot="product-01" data-media-type="image">
               <span class="product-silhouette" aria-hidden="true"></span>
               <div class="product-placeholder-label">
                 <span>Product image 01</span>
@@ -102,7 +102,7 @@
           </article>
 
           <article class="product">
-            <div class="product-visual product-visual--sand">
+            <div class="product-visual product-visual--sand" data-media-slot="product-02" data-media-type="image">
               <span class="product-silhouette" aria-hidden="true"></span>
               <div class="product-placeholder-label">
                 <span>Product image 02</span>
@@ -117,7 +117,7 @@
           </article>
 
           <article class="product">
-            <div class="product-visual product-visual--forest">
+            <div class="product-visual product-visual--forest" data-media-slot="product-03" data-media-type="image">
               <span class="product-silhouette" aria-hidden="true"></span>
               <div class="product-placeholder-label">
                 <span>Product image 03</span>
@@ -134,7 +134,7 @@
       </section>
 
       <section class="craft" id="craft" aria-labelledby="craft-title">
-        <div class="media-placeholder media-placeholder--dark craft-media" aria-label="Craft film or process image. Hands, merino texture, woven labels. Horizontal 3:2.">
+        <div class="media-placeholder media-placeholder--dark craft-media" data-media-slot="craft" data-media-type="video" aria-label="Craft film or process image. Hands, merino texture, woven labels. Horizontal 3:2.">
           <span class="placeholder-number">04</span>
           <span class="placeholder-cross" aria-hidden="true"></span>
           <div class="placeholder-copy"><span>Craft film / process image</span><small>Hands, merino texture, woven labels · horizontal 3:2</small></div>
@@ -170,7 +170,7 @@
         </div>
 
         <div class="editorial-grid">
-          <div class="media-placeholder editorial-main" aria-label="Italian town or cycling image. Movement, warm stone, midday light. Portrait 4:5.">
+          <div class="media-placeholder editorial-main" data-media-slot="editorial-main" data-media-type="image" aria-label="Italian town or cycling image. Movement, warm stone, midday light. Portrait 4:5.">
             <span class="placeholder-number">05</span>
             <span class="placeholder-cross" aria-hidden="true"></span>
             <div class="placeholder-copy"><span>Italian town / cycling</span><small>Movement, warm stone, midday light · portrait 4:5</small></div>
@@ -181,7 +181,7 @@
             <h3>Moon over<br>St. Moritz</h3>
             <span>December 2024</span>
           </div>
-          <div class="media-placeholder media-placeholder--dark editorial-small" aria-label="Courtyard or wine image. Candlelight, texture, candid atmosphere. 4:3.">
+          <div class="media-placeholder media-placeholder--dark editorial-small" data-media-slot="editorial-small" data-media-type="image" aria-label="Courtyard or wine image. Candlelight, texture, candid atmosphere. 4:3.">
             <span class="placeholder-number">06</span>
             <span class="placeholder-cross" aria-hidden="true"></span>
             <div class="placeholder-copy"><span>Courtyard / wine</span><small>Candlelight, texture, candid atmosphere · 4:3</small></div>
@@ -196,12 +196,12 @@
           <p>Unisex pieces styled instinctively—from the Swiss mountains to the Mediterranean coast.</p>
           <a class="text-link" href="#community">Meet the community</a>
         </div>
-        <div class="media-placeholder community-media community-media--one" aria-label="Community portrait. Woman in white tee, poolside. Portrait 4:5.">
+        <div class="media-placeholder community-media community-media--one" data-media-slot="community-01" data-media-type="image" aria-label="Community portrait. Woman in white tee, poolside. Portrait 4:5.">
           <span class="placeholder-number">07</span>
           <span class="placeholder-cross" aria-hidden="true"></span>
           <div class="placeholder-copy"><span>Community portrait</span><small>Woman in white tee · poolside · portrait 4:5</small></div>
         </div>
-        <div class="media-placeholder media-placeholder--dark community-media community-media--two" aria-label="Community portrait. Navy merino, rocky coast. Portrait 4:5.">
+        <div class="media-placeholder media-placeholder--dark community-media community-media--two" data-media-slot="community-02" data-media-type="image" aria-label="Community portrait. Navy merino, rocky coast. Portrait 4:5.">
           <span class="placeholder-number">08</span>
           <span class="placeholder-cross" aria-hidden="true"></span>
           <div class="placeholder-copy"><span>Community portrait</span><small>Navy merino · rocky coast · portrait 4:5</small></div>
