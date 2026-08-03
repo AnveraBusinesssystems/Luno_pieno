@@ -75,3 +75,22 @@ test("media slots use centered, crop-safe image and video framing", async () => 
     assert.match(pagesHtml, new RegExp(asset.replace(".", "\\.")));
   }
 });
+
+test("desktop, tablet, and phone layouts stay responsive", async () => {
+  const [appCss, pagesCss] = await Promise.all([
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../github-pages.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.equal(appCss.replace('@import "tailwindcss";', "").trim(), pagesCss.trim());
+
+  for (const css of [appCss, pagesCss]) {
+    assert.match(css, /@media \(max-width: 1050px\)/);
+    assert.match(css, /@media \(max-width: 720px\)/);
+    assert.match(css, /@media \(max-width: 390px\)/);
+    assert.match(css, /scroll-snap-type:\s*x mandatory/);
+    assert.match(css, /\.community-media--two\s*\{\s*display:\s*block;/);
+    assert.match(css, /\.wordmark--footer[^}]*font-size:\s*clamp\(/s);
+    assert.match(css, /@media \(hover: none\), \(pointer: coarse\)/);
+  }
+});
