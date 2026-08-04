@@ -1,279 +1,100 @@
-import type { CSSProperties } from "react";
-
-type MediaAsset = {
-  type: "image" | "video";
-  src: string;
-  alt: string;
-  poster?: string;
-  position?: string;
-};
-
-type PlaceholderProps = {
-  className?: string;
-  number: string;
-  title: string;
-  note: string;
-  dark?: boolean;
-  media?: MediaAsset;
-};
-
-function CoverMedia({
-  media,
-  priority = false,
-}: {
-  media?: MediaAsset;
-  priority?: boolean;
-}) {
-  if (!media?.src) {
-    return null;
-  }
-
-  const style = {
-    "--media-position": media.position ?? "50% 50%",
-  } as CSSProperties;
-
-  if (media.type === "video") {
-    return (
-      <video
-        className="media-fill"
-        style={style}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload={priority ? "auto" : "metadata"}
-        poster={media.poster || undefined}
-        aria-label={media.alt}
-        disablePictureInPicture
-      >
-        <source src={media.src} />
-      </video>
-    );
-  }
-
-  return (
-    <img
-      className="media-fill"
-      style={style}
-      src={media.src}
-      alt={media.alt}
-      loading={priority ? "eager" : "lazy"}
-    />
-  );
-}
-
-function MediaPlaceholder({
-  className = "",
-  number,
-  title,
-  note,
-  dark = false,
-  media,
-}: PlaceholderProps) {
-  const hasMedia = Boolean(media?.src);
-
-  return (
-    <div
-      className={`media-placeholder ${dark ? "media-placeholder--dark" : ""} ${hasMedia ? "media-placeholder--has-media" : ""} ${className}`}
-      aria-label={hasMedia ? undefined : `${title}. ${note}`}
-    >
-      <CoverMedia media={media} />
-      {!hasMedia && (
-        <>
-          <span className="placeholder-number">{number}</span>
-          <span className="placeholder-cross" aria-hidden="true" />
-          <div className="placeholder-copy">
-            <span>{title}</span>
-            <small>{note}</small>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-// Add final media paths here. Every slot crops to its frame, stays centered by
-// default, and can use a custom focal point such as "50% 30%".
-const mediaSlots = {
-  hero: {
-    type: "image",
-    src: "/media/hero-two-models-yacht.jpg",
-    alt: "Two models wearing LUNO PIENO essentials on a yacht at golden hour",
-    position: "50% 68%",
-  },
-  products: [
-    {
-      type: "image",
-      src: "/media/product-essential-tees.jpg",
-      alt: "White and navy LUNO PIENO essential tees with leather labels",
-      position: "50% 50%",
-    },
-    {
-      type: "image",
-      src: "/media/product-merino-navy.jpg",
-      alt: "Navy LUNO PIENO merino sweater",
-      position: "50% 50%",
-    },
-    {
-      type: "image",
-      src: "/media/product-merino-forest.jpg",
-      alt: "Forest green LUNO PIENO merino sweater",
-      position: "50% 50%",
-    },
-  ],
-  craft: {
-    type: "image",
-    src: "/media/craft-sewing-detail.jpg",
-    alt: "Close-up of a LUNO PIENO garment being sewn",
-    position: "50% 50%",
-  },
-  editorialMain: {
-    type: "image",
-    src: "/media/editorial-riviera-scooter.jpg",
-    alt: "Woman wearing LUNO PIENO knitwear beside a scooter on the Riviera",
-    position: "50% 48%",
-  },
-  editorialSmall: {
-    type: "image",
-    src: "/media/editorial-sunset-terrace.jpg",
-    alt: "LUNO PIENO evening story overlooking the coast at sunset",
-    position: "50% 46%",
-  },
-  communityOne: {
-    type: "image",
-    src: "/media/community-white-tee.jpg",
-    alt: "Community member wearing a white LUNO PIENO tee at sunset",
-    position: "50% 50%",
-  },
-  communityTwo: {
-    type: "image",
-    src: "/media/community-navy-knit.jpg",
-    alt: "Community member wearing navy LUNO PIENO merino on a boat",
-    position: "50% 50%",
-  },
-} satisfies {
-  hero: MediaAsset;
-  products: MediaAsset[];
-  craft: MediaAsset;
-  editorialMain: MediaAsset;
-  editorialSmall: MediaAsset;
-  communityOne: MediaAsset;
-  communityTwo: MediaAsset;
-};
-
 const products = [
-  { name: "The Essential Tee", detail: "White & navy · Premium cotton", tone: "chalk" },
-  { name: "The Merino Sweater", detail: "Navy · Made in Switzerland", tone: "sand" },
-  { name: "The Merino Sweater", detail: "Forest · Made in Switzerland", tone: "forest" },
+  {
+    name: "The Merino Crew",
+    detail: "Navy · Made in Switzerland",
+    image: "/media/product-merino-navy.jpg",
+    alt: "Navy LUNO PIENO merino sweater",
+    className: "lookbook-product--lead",
+  },
+  {
+    name: "The Essential Tee",
+    detail: "White & navy · Premium cotton",
+    image: "/media/product-essential-tees.jpg",
+    alt: "White and navy LUNO PIENO essential tees",
+    className: "lookbook-product--small",
+  },
+  {
+    name: "The Merino Crew",
+    detail: "Forest · Made in Switzerland",
+    image: "/media/product-merino-forest.jpg",
+    alt: "Forest green LUNO PIENO merino sweater",
+    className: "lookbook-product--wide",
+  },
 ];
 
 export default function Home() {
-  const heroHasMedia = Boolean(mediaSlots.hero.src);
-
   return (
-    <div className="site-shell">
-      <div className="announcement">
-        <span>Swiss essentials</span>
-        <span>Chapter 02 — Dolce far niente</span>
+    <div className="concept-shell" id="top">
+      <div className="concept-note">
+        <span>LUNO PIENO / Switzerland</span>
+        <span>Complimentary Swiss delivery</span>
         <span>CHF / EN</span>
       </div>
 
-      <header className="site-header">
-        <nav className="header-nav header-nav--left" aria-label="Primary navigation">
-          <a href="#shop">Shop</a>
-          <a href="#collection">Collections</a>
-          <a href="#craft">Craft</a>
-        </nav>
-
-        <a className="wordmark" href="#top" aria-label="Luno Pieno home">
-          LUNO PIENO
-          <span className="moon-mark" aria-hidden="true" />
+      <header className="concept-header">
+        <a className="concept-wordmark" href="#top" aria-label="LUNO PIENO home">
+          LUNO PIENO<span aria-hidden="true">◐</span>
         </a>
-
-        <nav className="header-nav header-nav--right" aria-label="Secondary navigation">
-          <a href="#world">Our world</a>
-          <a href="#about">About</a>
-          <button type="button" aria-label="Search">Search</button>
-          <button type="button" aria-label="Open shopping bag">Bag (0)</button>
+        <nav className="concept-nav" aria-label="Primary navigation">
+          <a href="#collection">Collection</a>
+          <a href="#craft">Making</a>
+          <a href="#journal">Journal</a>
         </nav>
+        <div className="concept-tools">
+          <button type="button">Search</button>
+          <button type="button" aria-label="Open shopping bag">Bag <span>(0)</span></button>
+        </div>
       </header>
 
-      <main id="top">
-        <section
-          className={`hero ${heroHasMedia ? "hero--has-media" : "hero--dynamic-fallback"}`}
-          aria-labelledby="hero-title"
-        >
-          <CoverMedia media={mediaSlots.hero} priority />
-          <div className="hero-art" aria-hidden="true">
-            <span className="hero-sun" />
-            <span className="hero-horizon" />
-            <span className="hero-deck" />
-            <span className="hero-figure hero-figure--one" />
-            <span className="hero-figure hero-figure--two" />
-          </div>
-
-          <div className="hero-media-label">
-            <span>Campaign image 01</span>
-            <span>Greek yacht · golden hour · editorial crop</span>
-          </div>
-
-          <div className="hero-copy">
-            <p className="eyebrow eyebrow--light">Luno Pieno · Switzerland</p>
-            <h1 id="hero-title">The art of living,<br /><em>considered.</em></h1>
-            <p className="hero-intro">
-              Quiet essentials shaped by Swiss precision and the ease of the Mediterranean.
-            </p>
-            <a className="text-link text-link--light" href="#shop">Discover the collection</a>
-          </div>
-
-          <div className="hero-index" aria-hidden="true">01 / 05</div>
-        </section>
-
-        <section className="manifesto" id="about" aria-labelledby="manifesto-title">
-          <p className="eyebrow">Dolce far niente</p>
-          <h2 id="manifesto-title">
-            Designed for the moments<br />that ask nothing of you.
-          </h2>
-          <p className="manifesto-copy">
-            LUNO PIENO creates unisex wardrobe essentials with a quiet confidence—pieces made to travel,
-            gather stories and become more personal with time.
-          </p>
-          <a className="text-link" href="#world">Enter our world</a>
-        </section>
-
-        <section className="collection" id="shop" aria-labelledby="collection-title">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">The permanent edit</p>
-              <h2 id="collection-title">Essential by design.</h2>
+      <main>
+        <section className="cover" aria-labelledby="cover-title">
+          <div className="cover-visual">
+            <img className="cover-image" src="/media/hero-two-models-yacht.jpg" alt="Two models wearing LUNO PIENO essentials on a yacht" />
+            <div className="cover-stamp">
+              <span>01</span>
+              <span>Mediterranean study</span>
             </div>
-            <p>Three foundations.<br />Nothing unnecessary.</p>
-            <a className="text-link" href="#collection">View all pieces</a>
           </div>
+          <div className="cover-copy">
+            <div>
+              <p className="concept-kicker">Permanent collection / 2025</p>
+              <h1 id="cover-title">Made for<br />a life in <em>motion.</em></h1>
+              <p className="cover-intro">Swiss-made essentials with a Mediterranean state of mind. Quietly precise, instinctively easy.</p>
+              <div className="cover-actions">
+                <a className="concept-button concept-button--dark" href="#collection">Shop the collection</a>
+                <a className="concept-button" href="#journal">Explore the journal</a>
+              </div>
+            </div>
+            <div className="cover-footnote">
+              <span>Designed in Switzerland</span>
+              <span>Made between Switzerland & Portugal</span>
+            </div>
+          </div>
+        </section>
 
-          <div className="product-grid" id="collection">
+        <div className="principles" aria-label="Brand principles">
+          <span>Swiss precision</span><i aria-hidden="true" />
+          <span>Portuguese craft</span><i aria-hidden="true" />
+          <span>Mediterranean spirit</span><i aria-hidden="true" />
+          <span>Unisex by design</span>
+        </div>
+
+        <section className="lookbook" id="collection" aria-labelledby="lookbook-title">
+          <div className="lookbook-heading">
+            <p className="concept-kicker">Chapter I / The permanent edit</p>
+            <h2 id="lookbook-title">Three pieces.<br /><em>Endless departures.</em></h2>
+            <p>Built as a small, exact wardrobe: tactile merino, weighty cotton and considered proportions that travel easily.</p>
+          </div>
+          <div className="lookbook-grid">
             {products.map((product, index) => (
-              <article className="product" key={product.name}>
-                <div className={`product-visual product-visual--${product.tone}`}>
-                  <CoverMedia media={mediaSlots.products[index]} />
-                  {!mediaSlots.products[index].src && (
-                    <>
-                      <span className="product-silhouette" aria-hidden="true" />
-                      <div className="product-placeholder-label">
-                        <span>Product image 0{index + 1}</span>
-                        <small>Front view · transparent or tonal background · 4:5</small>
-                      </div>
-                    </>
-                  )}
-                  <button type="button" className="quick-add" aria-label={`Quick add ${product.name}`}>
-                    Quick add
-                  </button>
+              <article className={`lookbook-product ${product.className}`} key={`${product.name}-${product.detail}`}>
+                <div className="lookbook-media">
+                  <img src={product.image} alt={product.alt} loading="lazy" />
+                  <span className="lookbook-number">0{index + 1}</span>
+                  <button type="button">Quick add</button>
                 </div>
-                <div className="product-meta">
-                  <div>
-                    <h3>{product.name}</h3>
-                    <p>{product.detail}</p>
-                  </div>
+                <div className="lookbook-meta">
+                  <div><h3>{product.name}</h3><p>{product.detail}</p></div>
                   <span>CHF —</span>
                 </div>
               </article>
@@ -281,136 +102,73 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="craft" id="craft" aria-labelledby="craft-title">
-          <MediaPlaceholder
-            className="craft-media"
-            number="04"
-            title="Craft film / process image"
-            note="Hands, merino texture, woven labels · horizontal 3:2"
-            dark
-            media={mediaSlots.craft}
-          />
-          <div className="craft-copy">
-            <p className="eyebrow eyebrow--light">Two origins. One standard.</p>
-            <h2 id="craft-title">Made with intention,<br /><em>close to home.</em></h2>
+        <section className="atelier" id="craft" aria-labelledby="atelier-title">
+          <div className="atelier-type" aria-hidden="true">L/P</div>
+          <div className="atelier-copy">
+            <p className="concept-kicker">Chapter II / Made close to home</p>
+            <h2 id="atelier-title">The luxury<br />of knowing <em>how.</em></h2>
+            <p>Fewer pieces. Better materials. Makers we know. Knitwear is developed in Switzerland; cotton essentials are cut and finished by experienced hands in northern Portugal.</p>
+            <a className="concept-button concept-button--light" href="#craft">Discover our making</a>
+          </div>
+          <figure className="atelier-image">
+            <img src="/media/craft-sewing-detail.jpg" alt="Close-up of a LUNO PIENO garment being sewn" loading="lazy" />
+            <figcaption><span>Hands at work</span><span>Portugal / 2025</span></figcaption>
+          </figure>
+        </section>
 
-            <div className="origin-list">
-              <article>
-                <span>01</span>
-                <div>
-                  <h3>Made in Switzerland</h3>
-                  <p>Merino knitwear developed with precision, patience and an uncompromising attention to touch.</p>
-                </div>
-              </article>
-              <article>
-                <span>02</span>
-                <div>
-                  <h3>Crafted in Portugal</h3>
-                  <p>Premium cotton essentials cut and finished by experienced makers in northern Portugal.</p>
-                </div>
-              </article>
-            </div>
+        <section className="postcards" id="journal" aria-labelledby="postcards-title">
+          <div className="postcards-heading">
+            <p className="concept-kicker">Chapter III / Field notes</p>
+            <h2 id="postcards-title">Postcards from<br /><em>elsewhere.</em></h2>
+            <a className="concept-button" href="#journal">View all stories</a>
+          </div>
+          <article className="postcard postcard--main">
+            <img src="/media/editorial-riviera-scooter.jpg" alt="LUNO PIENO on the Riviera beside a scooter" loading="lazy" />
+            <div><span>01 / Riviera</span><h3>Days without plans.</h3></div>
+          </article>
+          <article className="postcard postcard--sunset">
+            <img src="/media/editorial-sunset-terrace.jpg" alt="Sunset on the Mediterranean coast" loading="lazy" />
+            <div><span>02 / After light</span><h3>The long way home.</h3></div>
+          </article>
+          <article className="postcard postcard--community">
+            <img src="/media/community-white-tee.jpg" alt="Community member wearing the LUNO PIENO essential tee" loading="lazy" />
+            <div><span>03 / Worn well</span><h3>One piece, her way.</h3></div>
+          </article>
+        </section>
 
-            <a className="text-link text-link--light" href="#craft">Explore the making</a>
+        <section className="signature" aria-labelledby="signature-title">
+          <div className="signature-image">
+            <img src="/media/community-navy-knit.jpg" alt="Woman wearing navy LUNO PIENO knitwear on a boat" loading="lazy" />
+          </div>
+          <div className="signature-copy">
+            <p className="concept-kicker">The LUNO PIENO point of view</p>
+            <h2 id="signature-title">Precision,<br /><em>without stiffness.</em></h2>
+            <p>Clothes should make room for living. Our pieces move between mountains and coastlines, dinners and departures, becoming more personal with every wear.</p>
+            <a className="concept-button concept-button--dark" href="#top">Read our story</a>
           </div>
         </section>
 
-        <section className="world" id="world" aria-labelledby="world-title">
-          <div className="world-heading">
-            <p className="eyebrow">The Luno Pieno world</p>
-            <h2 id="world-title">A life, fully lived.</h2>
-            <p>Places, people and rituals that shape our point of view.</p>
-          </div>
-
-          <div className="editorial-grid">
-            <MediaPlaceholder
-              className="editorial-main"
-              number="05"
-              title="Italian town / cycling"
-              note="Movement, warm stone, midday light · portrait 4:5"
-              media={mediaSlots.editorialMain}
-            />
-            <div className="editorial-story editorial-story--moon">
-              <span className="editorial-moon" aria-hidden="true" />
-              <p className="eyebrow eyebrow--light">Field note 01</p>
-              <h3>Days on<br />the Riviera</h3>
-              <span>Summer 2025</span>
-            </div>
-            <MediaPlaceholder
-              className="editorial-small"
-              number="06"
-              title="Courtyard / wine"
-              note="Candlelight, texture, candid atmosphere · 4:3"
-              dark
-              media={mediaSlots.editorialSmall}
-            />
-          </div>
-        </section>
-
-        <section className="community" aria-labelledby="community-title">
-          <div className="community-copy">
-            <p className="eyebrow">Worn by the community</p>
-            <h2 id="community-title">One wardrobe.<br />Many lives.</h2>
-            <p>
-              Unisex pieces styled instinctively—from the Swiss mountains to the Mediterranean coast.
-            </p>
-            <a className="text-link" href="#community">Meet the community</a>
-          </div>
-          <MediaPlaceholder
-            className="community-media community-media--one"
-            number="07"
-            title="Community portrait"
-            note="Woman in white tee · poolside · portrait 4:5"
-            media={mediaSlots.communityOne}
-          />
-          <MediaPlaceholder
-            className="community-media community-media--two"
-            number="08"
-            title="Community portrait"
-            note="Navy merino · rocky coast · portrait 4:5"
-            dark
-            media={mediaSlots.communityTwo}
-          />
-        </section>
-
-        <section className="newsletter" aria-labelledby="newsletter-title">
-          <span className="newsletter-moon" aria-hidden="true" />
-          <p className="eyebrow">Notes from a life fully lived</p>
-          <h2 id="newsletter-title">Stories, new chapters and quiet arrivals.</h2>
-          <form className="newsletter-form">
-            <label className="sr-only" htmlFor="email">Email address</label>
-            <input id="email" type="email" placeholder="Email address" />
-            <button type="submit">Join the journal</button>
+        <section className="concept-newsletter" aria-labelledby="newsletter-title">
+          <p className="concept-kicker">Notes from a life fully lived</p>
+          <h2 id="newsletter-title">New chapters,<br /><em>occasionally.</em></h2>
+          <form className="concept-form">
+            <label className="sr-only" htmlFor="concept-email">Email address</label>
+            <input id="concept-email" type="email" placeholder="Email address" />
+            <button type="submit">Join the journal <span aria-hidden="true">↗</span></button>
           </form>
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-brand">
-          <div className="wordmark wordmark--footer">LUNO PIENO</div>
+      <footer className="concept-footer">
+        <div className="concept-footer-top">
+          <a className="concept-wordmark concept-wordmark--footer" href="#top">LUNO PIENO<span aria-hidden="true">◐</span></a>
           <p>Swiss restraint.<br />Mediterranean spirit.</p>
         </div>
-        <div className="footer-links">
-          <div>
-            <span>Client care</span>
-            <a href="#contact">Contact</a>
-            <a href="#shipping">Shipping & returns</a>
-            <a href="#size">Size guide</a>
-            <a href="#care">Care guide</a>
-          </div>
-          <div>
-            <span>About</span>
-            <a href="#about">Our story</a>
-            <a href="#craft">Craft</a>
-            <a href="#world">Journal</a>
-            <a href="https://www.instagram.com/luno.pieno/">Instagram</a>
-          </div>
+        <div className="concept-footer-links">
+          <div><span>Client care</span><a href="#contact">Contact</a><a href="#shipping">Shipping & returns</a><a href="#size">Size guide</a></div>
+          <div><span>Discover</span><a href="#craft">Making</a><a href="#journal">Journal</a><a href="https://www.instagram.com/luno.pieno/">Instagram</a></div>
         </div>
-        <div className="footer-bottom">
-          <span>© 2026 LUNO PIENO</span>
-          <span>Switzerland</span>
-          <span>Privacy · Terms</span>
-        </div>
+        <div className="concept-footer-bottom"><span>© 2026 LUNO PIENO</span><span>Switzerland</span><span>Privacy / Terms</span></div>
       </footer>
     </div>
   );
