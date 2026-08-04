@@ -13,8 +13,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = headerList.get("x-forwarded-host") ?? headerList.get("host") ?? "localhost:3000";
   const protocol = headerList.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = `${protocol}://${host}`;
-  const title = "LUNO PIENO — Swiss Essentials";
-  const description = "Unisex essentials shaped by Swiss precision and the ease of the Mediterranean.";
+  const title = "LUNO PIENO — A Wardrobe for Every Phase";
+  const description = "Swiss precision for Mediterranean days—and everything that happens after sunset.";
 
   return {
     title,
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: `${origin}/og.png`,
           width: 1774,
           height: 887,
-          alt: "LUNO PIENO — The art of living, considered.",
+          alt: "LUNO PIENO — A wardrobe for every phase.",
         },
       ],
     },

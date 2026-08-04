@@ -1,417 +1,171 @@
-import type { CSSProperties } from "react";
-
-type MediaAsset = {
-  type: "image" | "video";
-  src: string;
-  alt: string;
-  poster?: string;
-  position?: string;
-};
-
-type PlaceholderProps = {
-  className?: string;
-  number: string;
-  title: string;
-  note: string;
-  dark?: boolean;
-  media?: MediaAsset;
-};
-
-function CoverMedia({
-  media,
-  priority = false,
-}: {
-  media?: MediaAsset;
-  priority?: boolean;
-}) {
-  if (!media?.src) {
-    return null;
-  }
-
-  const style = {
-    "--media-position": media.position ?? "50% 50%",
-  } as CSSProperties;
-
-  if (media.type === "video") {
-    return (
-      <video
-        className="media-fill"
-        style={style}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload={priority ? "auto" : "metadata"}
-        poster={media.poster || undefined}
-        aria-label={media.alt}
-        disablePictureInPicture
-      >
-        <source src={media.src} />
-      </video>
-    );
-  }
-
-  return (
-    <img
-      className="media-fill"
-      style={style}
-      src={media.src}
-      alt={media.alt}
-      loading={priority ? "eager" : "lazy"}
-    />
-  );
-}
-
-function MediaPlaceholder({
-  className = "",
-  number,
-  title,
-  note,
-  dark = false,
-  media,
-}: PlaceholderProps) {
-  const hasMedia = Boolean(media?.src);
-
-  return (
-    <div
-      className={`media-placeholder ${dark ? "media-placeholder--dark" : ""} ${hasMedia ? "media-placeholder--has-media" : ""} ${className}`}
-      aria-label={hasMedia ? undefined : `${title}. ${note}`}
-    >
-      <CoverMedia media={media} />
-      {!hasMedia && (
-        <>
-          <span className="placeholder-number">{number}</span>
-          <span className="placeholder-cross" aria-hidden="true" />
-          <div className="placeholder-copy">
-            <span>{title}</span>
-            <small>{note}</small>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-// Add final media paths here. Every slot crops to its frame, stays centered by
-// default, and can use a custom focal point such as "50% 30%".
-const mediaSlots = {
-  hero: {
-    type: "image",
-    src: "/media/hero-two-models-yacht.jpg",
-    alt: "Two models wearing LUNO PIENO essentials on a yacht at golden hour",
-    position: "50% 68%",
+const constellationProducts = [
+  {
+    number: "01",
+    name: "Essential Tee",
+    origin: "Portugal / Cotton",
+    image: "/media/product-essential-tees.jpg",
+    alt: "White and navy LUNO PIENO essential tees",
+    shape: "constellation-product--moon",
   },
-  products: [
-    {
-      type: "image",
-      src: "/media/product-essential-tees.jpg",
-      alt: "White and navy LUNO PIENO essential tees with leather labels",
-      position: "50% 50%",
-    },
-    {
-      type: "image",
-      src: "/media/product-merino-navy.jpg",
-      alt: "Navy LUNO PIENO merino sweater",
-      position: "50% 50%",
-    },
-    {
-      type: "image",
-      src: "/media/product-merino-forest.jpg",
-      alt: "Forest green LUNO PIENO merino sweater",
-      position: "50% 50%",
-    },
-  ],
-  craft: {
-    type: "image",
-    src: "/media/craft-sewing-detail.jpg",
-    alt: "Close-up of a LUNO PIENO garment being sewn",
-    position: "50% 50%",
+  {
+    number: "02",
+    name: "Merino Crew",
+    origin: "Switzerland / Merino",
+    image: "/media/product-merino-forest.jpg",
+    alt: "Forest green LUNO PIENO merino crewneck",
+    shape: "constellation-product--square",
   },
-  editorialMain: {
-    type: "image",
-    src: "/media/editorial-riviera-scooter.jpg",
-    alt: "Woman wearing LUNO PIENO knitwear beside a scooter on the Riviera",
-    position: "50% 48%",
+  {
+    number: "03",
+    name: "LP Cap",
+    origin: "Portugal / Wool",
+    image: "/media/concept3-cap.jpg",
+    alt: "Charcoal LUNO PIENO embroidered cap",
+    shape: "constellation-product--orbit",
   },
-  editorialSmall: {
-    type: "image",
-    src: "/media/editorial-sunset-terrace.jpg",
-    alt: "LUNO PIENO evening story overlooking the coast at sunset",
-    position: "50% 46%",
-  },
-  communityOne: {
-    type: "image",
-    src: "/media/community-white-tee.jpg",
-    alt: "Community member wearing a white LUNO PIENO tee at sunset",
-    position: "50% 50%",
-  },
-  communityTwo: {
-    type: "image",
-    src: "/media/community-navy-knit.jpg",
-    alt: "Community member wearing navy LUNO PIENO merino on a boat",
-    position: "50% 50%",
-  },
-} satisfies {
-  hero: MediaAsset;
-  products: MediaAsset[];
-  craft: MediaAsset;
-  editorialMain: MediaAsset;
-  editorialSmall: MediaAsset;
-  communityOne: MediaAsset;
-  communityTwo: MediaAsset;
-};
-
-const products = [
-  { name: "The Essential Tee", detail: "White & navy · Premium cotton", tone: "chalk" },
-  { name: "The Merino Sweater", detail: "Navy · Made in Switzerland", tone: "sand" },
-  { name: "The Merino Sweater", detail: "Forest · Made in Switzerland", tone: "forest" },
 ];
 
 export default function Home() {
-  const heroHasMedia = Boolean(mediaSlots.hero.src);
-
   return (
-    <div className="site-shell">
-      <div className="announcement">
-        <span>Swiss essentials</span>
-        <span>Chapter 02 — Dolce far niente</span>
-        <span>CHF / EN</span>
-      </div>
-
-      <header className="site-header">
-        <nav className="header-nav header-nav--left" aria-label="Primary navigation">
-          <a href="#shop">Shop</a>
-          <a href="#collection">Collections</a>
-          <a href="#craft">Craft</a>
+    <div className="orbit-shell" id="top">
+      <aside className="time-rail" aria-label="Journey index">
+        <a href="#top" aria-label="LUNO PIENO home">LP</a>
+        <nav>
+          <a href="#day">06</a>
+          <a href="#collection">12</a>
+          <a href="#craft">18</a>
+          <a href="#night">24</a>
         </nav>
+        <span>Scroll</span>
+      </aside>
 
-        <a className="wordmark" href="#top" aria-label="Luno Pieno home">
-          LUNO PIENO
-          <span className="moon-mark" aria-hidden="true" />
-        </a>
+      <div className="orbit-page">
+        <header className="orbit-header">
+          <a className="orbit-wordmark" href="#top">LUNO PIENO <i aria-hidden="true" /></a>
+          <nav aria-label="Primary navigation">
+            <a href="#collection">Collection</a>
+            <a href="#craft">Origins</a>
+            <a href="#journal">Journal</a>
+          </nav>
+          <div><button type="button">Search</button><button type="button">Bag (0)</button></div>
+        </header>
 
-        <nav className="header-nav header-nav--right" aria-label="Secondary navigation">
-          <a href="#world">Our world</a>
-          <a href="#about">About</a>
-          <button type="button" aria-label="Search">Search</button>
-          <button type="button" aria-label="Open shopping bag">Bag (0)</button>
-        </nav>
-      </header>
-
-      <main id="top">
-        <section
-          className={`hero ${heroHasMedia ? "hero--has-media" : "hero--dynamic-fallback"}`}
-          aria-labelledby="hero-title"
-        >
-          <CoverMedia media={mediaSlots.hero} priority />
-          <div className="hero-art" aria-hidden="true">
-            <span className="hero-sun" />
-            <span className="hero-horizon" />
-            <span className="hero-deck" />
-            <span className="hero-figure hero-figure--one" />
-            <span className="hero-figure hero-figure--two" />
-          </div>
-
-          <div className="hero-media-label">
-            <span>Campaign image 01</span>
-            <span>Greek yacht · golden hour · editorial crop</span>
-          </div>
-
-          <div className="hero-copy">
-            <p className="eyebrow eyebrow--light">Luno Pieno · Switzerland</p>
-            <h1 id="hero-title">The art of living,<br /><em>considered.</em></h1>
-            <p className="hero-intro">
-              Quiet essentials shaped by Swiss precision and the ease of the Mediterranean.
-            </p>
-            <a className="text-link text-link--light" href="#shop">Discover the collection</a>
-          </div>
-
-          <div className="hero-index" aria-hidden="true">01 / 05</div>
-        </section>
-
-        <section className="manifesto" id="about" aria-labelledby="manifesto-title">
-          <p className="eyebrow">Dolce far niente</p>
-          <h2 id="manifesto-title">
-            Designed for the moments<br />that ask nothing of you.
-          </h2>
-          <p className="manifesto-copy">
-            LUNO PIENO creates unisex wardrobe essentials with a quiet confidence—pieces made to travel,
-            gather stories and become more personal with time.
-          </p>
-          <a className="text-link" href="#world">Enter our world</a>
-        </section>
-
-        <section className="collection" id="shop" aria-labelledby="collection-title">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">The permanent edit</p>
-              <h2 id="collection-title">Essential by design.</h2>
+        <main>
+          <section className="lunar-hero" aria-labelledby="lunar-title">
+            <p className="lunar-hero-word lunar-hero-word--top" aria-hidden="true">FULL</p>
+            <p className="lunar-hero-word lunar-hero-word--bottom" aria-hidden="true">LIFE.</p>
+            <div className="lunar-copy">
+              <p className="orbit-kicker">LUNO PIENO / Chapter 03</p>
+              <h1 id="lunar-title">A wardrobe<br />for every <em>phase.</em></h1>
+              <p>Swiss precision for Mediterranean days—and everything that happens after sunset.</p>
+              <a className="orbit-link orbit-link--light" href="#collection">Enter the orbit <span>↗</span></a>
             </div>
-            <p>Three foundations.<br />Nothing unnecessary.</p>
-            <a className="text-link" href="#collection">View all pieces</a>
+            <div className="moon-stage" aria-label="Campaign at sunset">
+              <div className="moon-image"><img src="/media/concept3-sunset-yacht.jpg" alt="LUNO PIENO at sunset on a yacht" /></div>
+              <span className="phase phase--one" aria-hidden="true" />
+              <span className="phase phase--two" aria-hidden="true" />
+              <span className="phase phase--three" aria-hidden="true" />
+            </div>
+            <figure className="floating-card floating-card--tee">
+              <img src="/media/product-essential-tees.jpg" alt="LUNO PIENO essential tees" />
+              <figcaption>01 / Cotton</figcaption>
+            </figure>
+            <figure className="floating-card floating-card--cap">
+              <img src="/media/concept3-cap.jpg" alt="LUNO PIENO embroidered cap" />
+              <figcaption>03 / Wool</figcaption>
+            </figure>
+            <div className="lunar-meta"><span>46.8182° N</span><span>Swiss made / Mediterranean worn</span><span>2025—∞</span></div>
+          </section>
+
+          <div className="orbit-marquee" aria-hidden="true">
+            <span>ALPINE MORNINGS</span><i>●</i><span>MEDITERRANEAN MIDNIGHTS</span><i>●</i><span>MADE CLOSE TO HOME</span><i>●</i><span>ALPINE MORNINGS</span>
           </div>
 
-          <div className="product-grid" id="collection">
-            {products.map((product, index) => (
-              <article className="product" key={product.name}>
-                <div className={`product-visual product-visual--${product.tone}`}>
-                  <CoverMedia media={mediaSlots.products[index]} />
-                  {!mediaSlots.products[index].src && (
-                    <>
-                      <span className="product-silhouette" aria-hidden="true" />
-                      <div className="product-placeholder-label">
-                        <span>Product image 0{index + 1}</span>
-                        <small>Front view · transparent or tonal background · 4:5</small>
-                      </div>
-                    </>
-                  )}
-                  <button type="button" className="quick-add" aria-label={`Quick add ${product.name}`}>
-                    Quick add
-                  </button>
-                </div>
-                <div className="product-meta">
-                  <div>
-                    <h3>{product.name}</h3>
-                    <p>{product.detail}</p>
+          <section className="daybook" id="day" aria-labelledby="daybook-title">
+            <div className="daybook-heading">
+              <p className="orbit-time">09:17 / Somewhere south</p>
+              <h2 id="daybook-title">The hours<br /><em>we keep.</em></h2>
+              <p>Not a collection built for occasions. A wardrobe shaped around the unplanned parts of a good life.</p>
+            </div>
+            <figure className="daybook-frame daybook-frame--fiat">
+              <img src="/media/concept3-vintage-fiat.jpg" alt="LUNO PIENO couple beside a vintage Fiat" loading="lazy" />
+              <figcaption>Stop 01 / Italy</figcaption>
+            </figure>
+            <figure className="daybook-frame daybook-frame--harbor">
+              <img src="/media/concept3-italian-harbor.jpg" alt="Italian harbor viewed from the water" loading="lazy" />
+              <figcaption>Stop 02 / The harbor</figcaption>
+            </figure>
+            <figure className="daybook-frame daybook-frame--boat">
+              <img src="/media/concept3-couple-boat.jpg" alt="LUNO PIENO knitwear worn on a boat" loading="lazy" />
+              <figcaption>Stop 03 / Offshore</figcaption>
+            </figure>
+            <blockquote>“Dress precisely.<br />Live spontaneously.”</blockquote>
+          </section>
+
+          <section className="constellation" id="collection" aria-labelledby="constellation-title">
+            <div className="constellation-heading">
+              <p className="orbit-time">12:00 / Permanent orbit</p>
+              <h2 id="constellation-title">Essential<br /><em>by gravity.</em></h2>
+              <p>Three foundations designed to circle through seasons, places and years.</p>
+            </div>
+            <div className="constellation-grid">
+              {constellationProducts.map((product) => (
+                <article className={`constellation-product ${product.shape}`} key={product.number}>
+                  <div className="constellation-media">
+                    <img src={product.image} alt={product.alt} loading="lazy" />
+                    <button type="button">Quick add</button>
                   </div>
-                  <span>CHF —</span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="craft" id="craft" aria-labelledby="craft-title">
-          <MediaPlaceholder
-            className="craft-media"
-            number="04"
-            title="Craft film / process image"
-            note="Hands, merino texture, woven labels · horizontal 3:2"
-            dark
-            media={mediaSlots.craft}
-          />
-          <div className="craft-copy">
-            <p className="eyebrow eyebrow--light">Two origins. One standard.</p>
-            <h2 id="craft-title">Made with intention,<br /><em>close to home.</em></h2>
-
-            <div className="origin-list">
-              <article>
-                <span>01</span>
-                <div>
-                  <h3>Made in Switzerland</h3>
-                  <p>Merino knitwear developed with precision, patience and an uncompromising attention to touch.</p>
-                </div>
-              </article>
-              <article>
-                <span>02</span>
-                <div>
-                  <h3>Crafted in Portugal</h3>
-                  <p>Premium cotton essentials cut and finished by experienced makers in northern Portugal.</p>
-                </div>
-              </article>
+                  <div className="constellation-meta"><span>{product.number}</span><h3>{product.name}</h3><p>{product.origin}</p><strong>CHF —</strong></div>
+                </article>
+              ))}
             </div>
+            <a className="orbit-link orbit-link--light constellation-link" href="#collection">View permanent collection <span>↗</span></a>
+          </section>
 
-            <a className="text-link text-link--light" href="#craft">Explore the making</a>
-          </div>
-        </section>
-
-        <section className="world" id="world" aria-labelledby="world-title">
-          <div className="world-heading">
-            <p className="eyebrow">The Luno Pieno world</p>
-            <h2 id="world-title">A life, fully lived.</h2>
-            <p>Places, people and rituals that shape our point of view.</p>
-          </div>
-
-          <div className="editorial-grid">
-            <MediaPlaceholder
-              className="editorial-main"
-              number="05"
-              title="Italian town / cycling"
-              note="Movement, warm stone, midday light · portrait 4:5"
-              media={mediaSlots.editorialMain}
-            />
-            <div className="editorial-story editorial-story--moon">
-              <span className="editorial-moon" aria-hidden="true" />
-              <p className="eyebrow eyebrow--light">Field note 01</p>
-              <h3>Days on<br />the Riviera</h3>
-              <span>Summer 2025</span>
+          <section className="coordinates" id="craft" aria-labelledby="coordinates-title">
+            <div className="coordinates-heading">
+              <p className="orbit-time">18:00 / Two origins</p>
+              <h2 id="coordinates-title">Coordinates<br />of <em>craft.</em></h2>
             </div>
-            <MediaPlaceholder
-              className="editorial-small"
-              number="06"
-              title="Courtyard / wine"
-              note="Candlelight, texture, candid atmosphere · 4:3"
-              dark
-              media={mediaSlots.editorialSmall}
-            />
-          </div>
-        </section>
+            <div className="coordinate coordinate--swiss"><span>CH</span><strong>46.8182° N</strong><h3>Swiss knitwear</h3><p>Merino developed with patience, precision and a deep understanding of touch.</p></div>
+            <div className="coordinate coordinate--portugal"><span>PT</span><strong>41.1579° N</strong><h3>Portuguese cotton</h3><p>Essential jersey cut, finished and packed by experienced makers in the north.</p></div>
+            <figure className="craft-frame craft-frame--packaging"><img src="/media/concept3-packaging.jpg" alt="LUNO PIENO branded packaging" loading="lazy" /><figcaption>Final checks / 01</figcaption></figure>
+            <figure className="craft-frame craft-frame--pattern"><img src="/media/concept3-pattern-making.jpg" alt="Digital garment pattern making" loading="lazy" /><figcaption>Pattern study / 02</figcaption></figure>
+            <div className="coordinate-line" aria-hidden="true"><span /><i /><span /></div>
+          </section>
 
-        <section className="community" aria-labelledby="community-title">
-          <div className="community-copy">
-            <p className="eyebrow">Worn by the community</p>
-            <h2 id="community-title">One wardrobe.<br />Many lives.</h2>
-            <p>
-              Unisex pieces styled instinctively—from the Swiss mountains to the Mediterranean coast.
-            </p>
-            <a className="text-link" href="#community">Meet the community</a>
-          </div>
-          <MediaPlaceholder
-            className="community-media community-media--one"
-            number="07"
-            title="Community portrait"
-            note="Woman in white tee · poolside · portrait 4:5"
-            media={mediaSlots.communityOne}
-          />
-          <MediaPlaceholder
-            className="community-media community-media--two"
-            number="08"
-            title="Community portrait"
-            note="Navy merino · rocky coast · portrait 4:5"
-            dark
-            media={mediaSlots.communityTwo}
-          />
-        </section>
+          <section className="nightfall" id="night" aria-labelledby="nightfall-title">
+            <img src="/media/hero-two-models-yacht.jpg" alt="Two LUNO PIENO models at sea" loading="lazy" />
+            <div className="nightfall-shade" />
+            <p className="orbit-time">24:00 / The day continues</p>
+            <h2 id="nightfall-title">Between<br /><em>day & night.</em></h2>
+            <div className="nightfall-copy"><p>Clothes that move easily between worlds. Nothing loud. Nothing unnecessary. Just pieces that feel right wherever the evening leads.</p><a className="orbit-link orbit-link--light" href="#journal">Read field note 03 <span>↗</span></a></div>
+            <span className="night-moon" aria-hidden="true" />
+          </section>
 
-        <section className="newsletter" aria-labelledby="newsletter-title">
-          <span className="newsletter-moon" aria-hidden="true" />
-          <p className="eyebrow">Notes from a life fully lived</p>
-          <h2 id="newsletter-title">Stories, new chapters and quiet arrivals.</h2>
-          <form className="newsletter-form">
-            <label className="sr-only" htmlFor="email">Email address</label>
-            <input id="email" type="email" placeholder="Email address" />
-            <button type="submit">Join the journal</button>
-          </form>
-        </section>
-      </main>
+          <section className="orbit-journal" id="journal" aria-labelledby="journal-title">
+            <div><p className="orbit-time">Field notes / Ongoing</p><h2 id="journal-title">Proof of<br /><em>a full life.</em></h2></div>
+            <article><span>01</span><h3>The art of going nowhere</h3><p>Riviera / 4 min read</p></article>
+            <article><span>02</span><h3>What we carry home</h3><p>Switzerland / 6 min read</p></article>
+            <article><span>03</span><h3>After the last swim</h3><p>Mediterranean / 3 min read</p></article>
+          </section>
 
-      <footer className="site-footer">
-        <div className="footer-brand">
-          <div className="wordmark wordmark--footer">LUNO PIENO</div>
-          <p>Swiss restraint.<br />Mediterranean spirit.</p>
-        </div>
-        <div className="footer-links">
-          <div>
-            <span>Client care</span>
-            <a href="#contact">Contact</a>
-            <a href="#shipping">Shipping & returns</a>
-            <a href="#size">Size guide</a>
-            <a href="#care">Care guide</a>
-          </div>
-          <div>
-            <span>About</span>
-            <a href="#about">Our story</a>
-            <a href="#craft">Craft</a>
-            <a href="#world">Journal</a>
-            <a href="https://www.instagram.com/luno.pieno/">Instagram</a>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <span>© 2026 LUNO PIENO</span>
-          <span>Switzerland</span>
-          <span>Privacy · Terms</span>
-        </div>
-      </footer>
+          <section className="midnight-letter" aria-labelledby="letter-title">
+            <span className="letter-moon" aria-hidden="true" />
+            <p className="orbit-kicker">Occasional transmissions</p>
+            <h2 id="letter-title">Stay in<br /><em>our orbit.</em></h2>
+            <form><label className="sr-only" htmlFor="orbit-email">Email address</label><input id="orbit-email" type="email" placeholder="Email address" /><button type="submit">Join <span>↗</span></button></form>
+          </section>
+        </main>
+
+        <footer className="orbit-footer">
+          <a className="orbit-footer-wordmark" href="#top">LUNO PIENO</a>
+          <div><span>Client care</span><a href="#contact">Contact</a><a href="#shipping">Shipping & returns</a><a href="#size">Size guide</a></div>
+          <div><span>Follow the orbit</span><a href="#journal">Journal</a><a href="https://www.instagram.com/luno.pieno/">Instagram</a><a href="#craft">Origins</a></div>
+          <p>Swiss precision.<br />Mediterranean spirit.</p>
+          <small>© 2026 LUNO PIENO / Switzerland / Privacy / Terms</small>
+        </footer>
+      </div>
     </div>
   );
 }
