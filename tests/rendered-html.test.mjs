@@ -69,7 +69,7 @@ test("the alternate concept stays synchronized and responsive", async () => {
   ]);
 
   assert.equal(appCss.replace('@import "tailwindcss";', "").trim(), pagesCss.trim());
-  assert.match(pagesHtml, /github-pages\.css\?v=concept-02/);
+  assert.match(pagesHtml, /github-pages\.css\?v=concept-02-travertine/);
 
   for (const css of [appCss, pagesCss]) {
     assert.match(css, /@media \(max-width: 1050px\)/);

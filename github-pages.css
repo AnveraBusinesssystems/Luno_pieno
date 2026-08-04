@@ -4,7 +4,7 @@
   --concept-ink: #111513;
   --concept-moss: #263f36;
   --concept-clay: #93442f;
-  --concept-citron: #d9d69a;
+  --concept-travertine: #d8c5a3;
   --concept-line: rgba(17, 21, 19, 0.22);
   --concept-serif: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
 }
@@ -130,7 +130,7 @@ img { display: block; max-width: 100%; }
   flex-direction: column;
   justify-content: space-between;
   gap: 60px;
-  background: var(--concept-citron);
+  background: var(--concept-travertine);
 }
 .concept-kicker {
   margin: 0 0 24px;
@@ -334,7 +334,7 @@ img { display: block; max-width: 100%; }
 .signature-copy .concept-button--dark { width: max-content; background: var(--concept-paper); color: var(--concept-moss); border-color: var(--concept-paper); }
 .signature-copy .concept-button--dark:hover { background: transparent; color: var(--concept-paper); }
 
-.concept-newsletter { padding: 135px 28px 120px; text-align: center; background: var(--concept-citron); }
+.concept-newsletter { padding: 135px 28px 120px; text-align: center; background: var(--concept-travertine); }
 .concept-newsletter h2 { font-size: clamp(58px, 7vw, 106px); line-height: 0.86; }
 .concept-form {
   max-width: 720px;
