@@ -37,7 +37,8 @@ test("campaign and product imagery is complete and crop-safe", async () => {
     readFile(new URL("../github-pages.css", import.meta.url), "utf8"),
   ]);
   for (const css of [appCss, pagesCss]) {
-    assert.ok((css.match(/object-fit:\s*cover/g) ?? []).length >= 6);
+    assert.ok((css.match(/object-fit:\s*cover/g) ?? []).length >= 5);
+    assert.match(css, /\.opening-main img,[\s\S]*?\.opening-sunset img\s*\{[^}]*object-fit:\s*cover/);
     assert.match(css, /prefers-reduced-motion:\s*reduce/);
   }
   for (const asset of [
@@ -69,7 +70,7 @@ test("lunar concept stays synchronized and responsive", async () => {
     assert.match(css, /@media \(max-width: 1050px\)/);
     assert.match(css, /@media \(max-width: 720px\)/);
     assert.match(css, /@media \(max-width: 390px\)/);
-    assert.match(css, /\.moon-stage\s*\{/);
+    assert.match(css, /\.opening-hero\s*\{/);
     assert.match(css, /\.constellation-grid\s*\{/);
     assert.match(css, /\.coordinates\s*\{/);
     assert.match(css, /@media \(hover: none\), \(pointer: coarse\)/);

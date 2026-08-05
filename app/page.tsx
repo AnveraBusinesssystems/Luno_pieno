@@ -51,30 +51,31 @@ export default function Home() {
         </header>
 
         <main>
-          <section className="lunar-hero" aria-labelledby="lunar-title">
-            <p className="lunar-hero-word lunar-hero-word--top" aria-hidden="true">FULL</p>
-            <p className="lunar-hero-word lunar-hero-word--bottom" aria-hidden="true">LIFE.</p>
-            <div className="lunar-copy">
-              <p className="orbit-kicker">LUNO PIENO / Chapter 03</p>
-              <h1 id="lunar-title">A wardrobe<br />for every <em>phase.</em></h1>
-              <p>Swiss precision for Mediterranean days—and everything that happens after sunset.</p>
-              <a className="orbit-link orbit-link--light" href="#collection">Enter the orbit <span>↗</span></a>
+          <section className="opening-hero" aria-labelledby="opening-title">
+            <div className="opening-copy">
+              <div className="opening-copy-top"><p className="orbit-kicker">LUNO PIENO / Chapter 03</p><span>03 / 24</span></div>
+              <div className="opening-statement">
+                <h1 id="opening-title">Live in<br />every <em>phase.</em></h1>
+                <p>Swiss precision for Mediterranean days—and everything that happens after sunset.</p>
+                <a className="orbit-link orbit-link--light" href="#collection">Discover the collection <span>↗</span></a>
+              </div>
+              <div className="opening-origin"><span>46.8182° N</span><span>Swiss made<br />Mediterranean worn</span></div>
             </div>
-            <div className="moon-stage" aria-label="Campaign at sunset">
-              <div className="moon-image"><img src="/media/concept3-sunset-yacht.jpg" alt="LUNO PIENO at sunset on a yacht" /></div>
-              <span className="phase phase--one" aria-hidden="true" />
-              <span className="phase phase--two" aria-hidden="true" />
-              <span className="phase phase--three" aria-hidden="true" />
+            <figure className="opening-main">
+              <img src="/media/hero-two-models-yacht.jpg" alt="Two LUNO PIENO models at sea" fetchPriority="high" />
+              <figcaption><span>Golden hour / Mediterranean</span><span>01</span></figcaption>
+            </figure>
+            <div className="opening-side">
+              <figure className="opening-sunset">
+                <img src="/media/concept3-sunset-yacht.jpg" alt="LUNO PIENO silhouette at sunset on a yacht" />
+                <figcaption>After light / 20:43</figcaption>
+              </figure>
+              <div className="opening-phase-card">
+                <span className="opening-crescent" aria-hidden="true" />
+                <p>Designed for<br />the hours between.</p>
+                <small>2025—∞ / Switzerland</small>
+              </div>
             </div>
-            <figure className="floating-card floating-card--tee">
-              <img src="/media/product-essential-tees.jpg" alt="LUNO PIENO essential tees" />
-              <figcaption>01 / Cotton</figcaption>
-            </figure>
-            <figure className="floating-card floating-card--cap">
-              <img src="/media/concept3-cap.jpg" alt="LUNO PIENO embroidered cap" />
-              <figcaption>03 / Wool</figcaption>
-            </figure>
-            <div className="lunar-meta"><span>46.8182° N</span><span>Swiss made / Mediterranean worn</span><span>2025—∞</span></div>
           </section>
 
           <div className="orbit-marquee" aria-hidden="true">

@@ -69,11 +69,9 @@ img { display: block; max-width: 100%; }
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 30px;
-  position: absolute;
-  top: 0;
-  left: 58px;
-  right: 0;
+  position: relative;
   z-index: 20;
+  background: var(--orbit-night);
   border-bottom: 1px solid var(--orbit-line-dark);
   color: var(--orbit-white);
 }
@@ -93,39 +91,54 @@ img { display: block; max-width: 100%; }
 .orbit-header nav a,
 .orbit-header button { font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; }
 
-.lunar-hero {
-  min-height: max(820px, 100svh);
-  position: relative;
-  overflow: hidden;
+.opening-hero {
+  min-height: max(720px, calc(100svh - 80px));
+  display: grid;
+  grid-template-columns: minmax(300px, 0.8fr) minmax(410px, 1.25fr) minmax(250px, 0.62fr);
   background: var(--orbit-night);
   color: var(--orbit-white);
 }
-.lunar-hero::before {
+.opening-copy {
+  padding: clamp(45px, 5vw, 82px) clamp(26px, 3.6vw, 62px) 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  border-right: 1px solid var(--orbit-line-dark);
+}
+.opening-copy::after {
   content: "";
+  width: 82px;
+  height: 82px;
   position: absolute;
-  inset: 0;
-  opacity: 0.28;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.7) 0 1px, transparent 1.2px);
-  background-size: 79px 79px;
+  top: 50%;
+  right: -41px;
+  z-index: 3;
+  border: 1px solid rgba(251,248,240,0.5);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
-.lunar-hero-word {
-  margin: 0;
-  position: absolute;
-  z-index: 0;
-  font-size: clamp(150px, 18vw, 300px);
-  font-weight: 700;
-  letter-spacing: -0.075em;
-  line-height: 0.7;
-  color: rgba(251,248,240,0.06);
+.opening-copy-top,
+.opening-origin {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 7px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
-.lunar-hero-word--top { top: 135px; left: 3.5vw; }
-.lunar-hero-word--bottom { right: 3vw; bottom: 52px; }
-.lunar-copy {
-  width: min(450px, 36vw);
-  position: absolute;
-  left: 6vw;
-  bottom: 145px;
-  z-index: 5;
+.opening-copy-top .orbit-kicker { margin: 0; }
+.opening-copy-top > span,
+.opening-origin { color: rgba(251,248,240,0.48); }
+.opening-statement { margin: auto 0; padding: 50px 0; }
+.opening-origin { align-items: flex-end; }
+.opening-origin span:last-child { text-align: right; }
+.opening-statement > p {
+  max-width: 330px;
+  margin: 30px 0;
+  color: rgba(251,248,240,0.66);
 }
 .orbit-kicker,
 .orbit-time {
@@ -135,7 +148,7 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.19em;
   text-transform: uppercase;
 }
-.lunar-copy h1,
+.opening-statement h1,
 .daybook h2,
 .constellation h2,
 .coordinates h2,
@@ -147,15 +160,14 @@ img { display: block; max-width: 100%; }
   font-weight: 400;
   letter-spacing: -0.045em;
 }
-.lunar-copy h1 { font-size: clamp(58px, 6vw, 94px); line-height: 0.87; }
-.lunar-copy h1 em,
+.opening-statement h1 { font-size: clamp(62px, 6.2vw, 106px); line-height: 0.84; }
+.opening-statement h1 em,
 .daybook h2 em,
 .constellation h2 em,
 .coordinates h2 em,
 .nightfall h2 em,
 .orbit-journal h2 em,
 .midnight-letter h2 em { font-weight: 400; }
-.lunar-copy > p:not(.orbit-kicker) { max-width: 360px; margin: 30px 0; color: rgba(251,248,240,0.68); }
 .orbit-link {
   min-height: 42px;
   padding: 0 0 7px;
@@ -172,67 +184,53 @@ img { display: block; max-width: 100%; }
 .orbit-link:hover span { transform: translate(3px,-3px); }
 .orbit-link--light { color: var(--orbit-white); }
 
-.moon-stage {
-  width: min(46vw, 650px);
-  aspect-ratio: 1;
-  position: absolute;
-  top: 11%;
-  right: 8%;
-  z-index: 2;
-}
-.moon-image {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(251,248,240,0.35), 0 0 100px rgba(237,93,59,0.15);
-}
-.moon-image img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
-.phase { position: absolute; border: 1px solid rgba(251,248,240,0.38); border-radius: 50%; pointer-events: none; }
-.phase--one { inset: -7%; }
-.phase--two { inset: -14%; opacity: 0.55; }
-.phase--three { inset: -21%; opacity: 0.28; }
-.phase--one::before,
-.phase--two::after {
-  content: "";
-  width: 9px;
-  height: 9px;
-  position: absolute;
-  border-radius: 50%;
-  background: var(--orbit-sun);
-}
-.phase--one::before { right: 13%; bottom: 20%; }
-.phase--two::after { left: 8%; top: 27%; background: var(--orbit-blue); }
-
-.floating-card {
+.opening-main,
+.opening-sunset {
   margin: 0;
-  padding: 7px 7px 8px;
-  position: absolute;
-  z-index: 4;
-  background: var(--orbit-white);
-  color: var(--orbit-ink);
-  box-shadow: 0 20px 45px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
 }
-.floating-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
-.floating-card figcaption { padding-top: 7px; font-size: 7px; letter-spacing: 0.15em; text-transform: uppercase; }
-.floating-card--tee { width: 150px; right: 4.5vw; bottom: 8%; transform: rotate(4deg); }
-.floating-card--cap { width: 128px; left: 46%; top: 13%; transform: rotate(-5deg); }
-.lunar-meta {
+.opening-main { min-height: 100%; }
+.opening-main img,
+.opening-sunset img { width: 100%; height: 100%; object-fit: cover; }
+.opening-main img { object-position: 51% 50%; }
+.opening-main::after {
+  content: "";
   position: absolute;
-  left: 6vw;
-  right: 28px;
-  bottom: 24px;
-  z-index: 5;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 30px;
-  color: rgba(251,248,240,0.5);
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7,16,24,0.05) 55%, rgba(7,16,24,0.72));
+  pointer-events: none;
+}
+.opening-main figcaption,
+.opening-sunset figcaption {
+  position: absolute;
+  z-index: 2;
+  color: var(--orbit-white);
   font-size: 7px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
-.lunar-meta span:nth-child(2) { text-align: center; }
-.lunar-meta span:last-child { text-align: right; }
+.opening-main figcaption { left: 22px; right: 22px; bottom: 19px; display: flex; justify-content: space-between; }
+.opening-side { min-width: 0; display: grid; grid-template-rows: 1.42fr 0.8fr; }
+.opening-sunset { border-bottom: 1px solid var(--orbit-line-dark); }
+.opening-sunset img { object-position: 48% 50%; }
+.opening-sunset::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 58%, rgba(7,16,24,0.58)); }
+.opening-sunset figcaption { left: 18px; bottom: 16px; }
+.opening-phase-card {
+  min-height: 235px;
+  padding: 28px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  background: var(--orbit-sun);
+  color: var(--orbit-deep);
+}
+.opening-phase-card p { margin: auto 0 18px; position: relative; z-index: 1; font-family: var(--orbit-serif); font-size: clamp(25px, 2vw, 34px); line-height: 0.95; }
+.opening-phase-card small { position: relative; z-index: 1; font-size: 7px; letter-spacing: 0.13em; text-transform: uppercase; }
+.opening-crescent { width: 118px; height: 118px; position: absolute; top: 19px; right: -7px; border-radius: 50%; background: var(--orbit-deep); }
+.opening-crescent::after { content: ""; width: 100%; height: 100%; position: absolute; left: -23px; top: -8px; border-radius: inherit; background: var(--orbit-sun); }
 
 .orbit-marquee {
   min-height: 66px;
@@ -456,16 +454,17 @@ img { display: block; max-width: 100%; }
 @media (max-width: 1050px) {
   .time-rail { width: 48px; }
   .orbit-page { margin-left: 48px; }
-  .orbit-header { left: 48px; padding-inline: 22px; }
+  .orbit-header { padding-inline: 22px; }
   .orbit-header nav { gap: 18px; }
   .orbit-header nav a:last-child,
   .orbit-header button:first-child { display: none; }
-  .lunar-hero { min-height: 860px; }
-  .moon-stage { width: min(54vw, 570px); top: 14%; right: 5%; }
-  .lunar-copy { width: 42vw; left: 5vw; bottom: 135px; }
-  .lunar-copy h1 { font-size: clamp(58px, 7vw, 74px); }
-  .floating-card--tee { width: 125px; right: 3vw; }
-  .floating-card--cap { width: 110px; left: 44%; top: 16%; }
+  .opening-hero { min-height: 0; grid-template-columns: minmax(280px, 0.82fr) minmax(400px, 1.18fr); grid-template-rows: max(620px, calc(100svh - 80px)) 270px; }
+  .opening-copy { grid-column: 1; grid-row: 1; }
+  .opening-statement h1 { font-size: clamp(62px, 8vw, 84px); }
+  .opening-main { grid-column: 2; grid-row: 1; }
+  .opening-side { grid-column: 1 / 3; grid-row: 2; grid-template-columns: 1.25fr 0.75fr; grid-template-rows: none; }
+  .opening-sunset { border-right: 1px solid var(--orbit-line-dark); border-bottom: 0; }
+  .opening-phase-card { min-height: 0; }
   .daybook { min-height: 1020px; grid-template-rows: 230px 320px 210px; }
   .constellation { min-height: 980px; }
   .coordinates { min-height: 820px; grid-template-columns: 0.8fr 0.9fr 1fr; }
@@ -482,23 +481,25 @@ img { display: block; max-width: 100%; }
   body { font-size: 13px; }
   .time-rail { display: none; }
   .orbit-page { margin-left: 0; }
-  .orbit-header { height: 68px; left: 0; padding-inline: 16px; grid-template-columns: 1fr auto; }
+  .orbit-header { height: 68px; padding-inline: 16px; grid-template-columns: 1fr auto; }
   .orbit-wordmark { font-size: 17px; letter-spacing: 0.15em; }
   .orbit-header nav { display: none; }
   .orbit-header > div { gap: 0; }
   .orbit-header button:first-child { display: none; }
   .orbit-header button:last-child { min-height: 44px; }
-  .lunar-hero { min-height: 980px; }
-  .lunar-hero-word { font-size: 26vw; }
-  .lunar-hero-word--top { top: 105px; left: 11px; }
-  .lunar-hero-word--bottom { right: 10px; bottom: 35px; }
-  .moon-stage { width: 78vw; max-width: 350px; top: 175px; left: 50%; right: auto; transform: translateX(-50%); }
-  .lunar-copy { width: auto; left: 20px; right: 20px; bottom: 295px; }
-  .lunar-copy h1 { font-size: clamp(52px, 15vw, 64px); }
-  .lunar-copy > p:not(.orbit-kicker) { margin: 23px 0; }
-  .floating-card--tee { width: 112px; left: 20px; right: auto; bottom: 65px; transform: rotate(-3deg); }
-  .floating-card--cap { width: 102px; left: auto; right: 20px; top: auto; bottom: 78px; transform: rotate(4deg); }
-  .lunar-meta { display: none; }
+  .opening-hero { display: block; }
+  .opening-copy { min-height: 520px; padding: 38px 20px 25px; border-right: 0; border-bottom: 1px solid var(--orbit-line-dark); }
+  .opening-copy::after { width: 70px; height: 70px; top: auto; right: 22px; bottom: -35px; transform: none; }
+  .opening-statement { padding: 54px 0 42px; }
+  .opening-statement h1 { font-size: clamp(60px, 18vw, 78px); }
+  .opening-statement > p { max-width: 310px; margin: 25px 0; }
+  .opening-main { height: clamp(500px, 132vw, 680px); min-height: 0; }
+  .opening-main img { object-position: 52% 50%; }
+  .opening-side { height: 330px; grid-template-columns: 1.08fr 0.92fr; grid-template-rows: none; }
+  .opening-sunset { border-right: 1px solid var(--orbit-line-dark); border-bottom: 0; }
+  .opening-phase-card { min-height: 0; padding: 22px 17px 18px; }
+  .opening-phase-card p { font-size: clamp(23px, 7vw, 30px); }
+  .opening-crescent { width: 98px; height: 98px; right: -22px; }
   .orbit-marquee { min-height: 58px; gap: 20px; font-size: 15px; }
   .daybook { min-height: 0; padding: 88px 16px 96px; grid-template-columns: 1fr 1fr; grid-template-rows: auto 520px 260px 250px auto; gap: 8px; }
   .daybook-heading { grid-column: 1 / 3; grid-row: auto; padding: 0 0 34px; }
@@ -551,9 +552,9 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 390px) {
-  .lunar-copy { left: 17px; right: 17px; }
-  .floating-card--tee { left: 14px; }
-  .floating-card--cap { right: 14px; }
+  .opening-copy { min-height: 500px; padding-inline: 17px; }
+  .opening-side { height: 300px; }
+  .opening-phase-card small { max-width: 90px; line-height: 1.55; }
   .daybook,
   .constellation,
   .coordinates,
