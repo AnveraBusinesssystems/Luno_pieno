@@ -19,6 +19,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
+    themeColor: [
+      { media: "(prefers-color-scheme: light)", color: "#111513" },
+      { media: "(prefers-color-scheme: dark)", color: "#07111c" },
+    ],
     openGraph: {
       title,
       description,
@@ -45,7 +49,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="stylesheet" href="/luno-theme.css?v=day-night-01" />
+        <script src="/luno-theme.js" />
+      </head>
       <body className={geist.variable}>{children}</body>
     </html>
   );
