@@ -51,7 +51,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="stylesheet" href="/luno-theme.css?v=day-night-01" />
+        <link rel="stylesheet" href="/luno-theme.css?v=day-night-02" />
+        <link rel="stylesheet" href="/luno-refine.css?v=calm-day-01" />
         <script src="/luno-theme.js" />
       </head>
       <body className={geist.variable}>{children}</body>
