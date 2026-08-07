@@ -1,0 +1,154 @@
+:root {
+  --luno-night: #07111c;
+  --luno-night-surface: #0d1b27;
+  --luno-night-panel: #132635;
+  --luno-night-ink: #f7f2e8;
+  --luno-night-muted: rgba(247, 242, 232, 0.66);
+  --luno-moon-glow: rgba(255, 255, 255, 0.32);
+}
+
+html {
+  color-scheme: light;
+  transition: background-color 900ms ease;
+}
+
+html[data-theme="night"] { color-scheme: dark; background: var(--luno-night); }
+body,
+.concept-header,
+.concept-note,
+.cover-copy,
+.principles,
+.lookbook,
+.atelier,
+.postcards,
+.signature,
+.concept-newsletter,
+.concept-footer,
+.concept-button,
+.concept-form input,
+.concept-form button,
+.lookbook-number,
+.lookbook-media button {
+  transition: background-color 900ms ease, color 900ms ease, border-color 900ms ease, box-shadow 900ms ease;
+}
+
+html[data-theme="night"] body { background: var(--luno-night); color: var(--luno-night-ink); }
+html[data-theme="night"] .concept-note { background: #02070d; color: var(--luno-night-ink); }
+html[data-theme="night"] .concept-header { background: rgba(7, 17, 28, 0.96); color: var(--luno-night-ink); border-color: rgba(247, 242, 232, 0.16); }
+html[data-theme="night"] .cover-copy { background: linear-gradient(145deg, #14293a 0%, #0b1824 58%, #07111c 100%); color: var(--luno-night-ink); }
+html[data-theme="night"] .cover-footnote,
+html[data-theme="night"] .lookbook-heading,
+html[data-theme="night"] .concept-footer,
+html[data-theme="night"] .concept-footer-bottom { border-color: rgba(247, 242, 232, 0.18); }
+html[data-theme="night"] .principles,
+html[data-theme="night"] .lookbook,
+html[data-theme="night"] .postcards { background: var(--luno-night-surface); color: var(--luno-night-ink); border-color: rgba(247, 242, 232, 0.14); }
+html[data-theme="night"] .lookbook-heading > p:last-child,
+html[data-theme="night"] .lookbook-meta p,
+html[data-theme="night"] .lookbook-meta > span,
+html[data-theme="night"] .signature-copy > p,
+html[data-theme="night"] .concept-footer p,
+html[data-theme="night"] .concept-footer a { color: var(--luno-night-muted); }
+html[data-theme="night"] .lookbook-number,
+html[data-theme="night"] .lookbook-media button { background: rgba(7, 17, 28, 0.9); color: var(--luno-night-ink); }
+html[data-theme="night"] .atelier { background: #07151b; color: var(--luno-night-ink); }
+html[data-theme="night"] .signature { background: #0a1721; color: var(--luno-night-ink); }
+html[data-theme="night"] .concept-newsletter { background: radial-gradient(circle at 50% 18%, #20364b 0, #0b1824 34%, #050b12 72%); color: var(--luno-night-ink); }
+html[data-theme="night"] .concept-footer { background: #02070d; color: var(--luno-night-ink); }
+html[data-theme="night"] .concept-button { border-color: rgba(247, 242, 232, 0.72); color: var(--luno-night-ink); }
+html[data-theme="night"] .concept-button--dark { background: var(--luno-night-ink); color: var(--luno-night); }
+html[data-theme="night"] .concept-form input,
+html[data-theme="night"] .concept-form button { border-color: rgba(247, 242, 232, 0.38); color: var(--luno-night-ink); background: transparent; }
+html[data-theme="night"] .concept-form input::placeholder { color: rgba(247, 242, 232, 0.5); }
+html[data-theme="night"] .cover-visual::after,
+html[data-theme="night"] .postcard::after,
+html[data-theme="night"] .signature-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(3, 8, 14, 0.02), rgba(3, 8, 14, 0.34));
+}
+
+.luno-theme-toggle {
+  min-width: 86px;
+  min-height: 34px;
+  padding: 7px 10px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid currentColor !important;
+  border-radius: 999px;
+  font-size: 8px !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase;
+}
+.luno-theme-toggle::after { display: none !important; }
+.luno-theme-toggle__moon {
+  width: 13px;
+  height: 13px;
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 transparent;
+  transition: color 800ms ease, transform 800ms ease, box-shadow 800ms ease;
+}
+.luno-theme-toggle__moon::after {
+  content: "";
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  top: -2px;
+  left: -4px;
+  border-radius: 50%;
+  background: var(--concept-paper, #fbf8f1);
+  transition: background-color 800ms ease, transform 800ms ease;
+}
+html[data-theme="night"] .luno-theme-toggle__moon {
+  color: #fff;
+  transform: rotate(-12deg);
+  box-shadow: 0 0 14px var(--luno-moon-glow);
+}
+html[data-theme="night"] .luno-theme-toggle__moon::after { background: rgba(7, 17, 28, 0.96); }
+
+.concept-wordmark > span {
+  color: currentColor;
+  transition: color 800ms ease, filter 800ms ease, transform 800ms ease;
+}
+html[data-theme="night"] .concept-wordmark > span {
+  color: #fff;
+  filter: drop-shadow(0 0 8px var(--luno-moon-glow));
+  transform: rotate(-10deg);
+}
+
+.luno-theme-image {
+  opacity: 1;
+  transition: opacity 700ms ease, filter 1000ms ease, transform 1200ms cubic-bezier(.2,.7,.2,1);
+}
+html[data-theme="night"] .luno-theme-image { filter: saturate(.86) contrast(1.05) brightness(.8); }
+
+.luno-night-orbit {
+  width: min(42vw, 540px);
+  aspect-ratio: 1;
+  position: fixed;
+  right: -15vw;
+  top: 18vh;
+  z-index: 0;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1200ms ease;
+}
+html[data-theme="night"] .luno-night-orbit { opacity: 1; }
+
+@media (max-width: 720px) {
+  .luno-theme-toggle { min-width: 38px; width: 38px; padding: 6px !important; }
+  .luno-theme-toggle__label { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, body, .luno-theme-image, .luno-theme-toggle__moon, .concept-wordmark > span { transition: none !important; }
+}
