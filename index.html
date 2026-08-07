@@ -7,21 +7,27 @@
   <meta name="theme-color" content="#111513">
   <title>LUNO PIENO — Concept 02</title>
   <link rel="icon" href="public/favicon.svg" type="image/svg+xml">
+  <script src="public/luno-theme.js"></script>
   <link rel="stylesheet" href="github-pages.css?v=concept-02-travertine">
+  <link rel="stylesheet" href="public/luno-theme.css?v=day-night-01">
 </head>
 <body>
+  <span class="luno-night-orbit" aria-hidden="true"></span>
   <div class="concept-shell" id="top">
     <div class="concept-note"><span>LUNO PIENO / Switzerland</span><span>Complimentary Swiss delivery</span><span>CHF / EN</span></div>
     <header class="concept-header">
       <a class="concept-wordmark" href="#top" aria-label="LUNO PIENO home">LUNO PIENO<span aria-hidden="true">◐</span></a>
       <nav class="concept-nav" aria-label="Primary navigation"><a href="#collection">Collection</a><a href="#craft">Making</a><a href="#journal">Journal</a></nav>
-      <div class="concept-tools"><button type="button">Search</button><button type="button" aria-label="Open shopping bag">Bag <span>(0)</span></button></div>
+      <div class="concept-tools">
+        <button class="luno-theme-toggle" type="button" data-theme-toggle aria-label="Switch theme"><span class="luno-theme-toggle__moon" aria-hidden="true"></span><span class="luno-theme-toggle__label" data-theme-label>Night</span></button>
+        <button type="button">Search</button><button type="button" aria-label="Open shopping bag">Bag <span>(0)</span></button>
+      </div>
     </header>
 
     <main>
       <section class="cover" aria-labelledby="cover-title">
         <div class="cover-visual">
-          <img class="cover-image" src="public/media/hero-two-models-yacht.jpg" alt="Two models wearing LUNO PIENO essentials on a yacht">
+          <img class="cover-image luno-theme-image" src="public/media/hero-two-models-yacht.jpg" alt="Two models wearing LUNO PIENO essentials on a yacht">
           <div class="cover-stamp"><span>01</span><span>Mediterranean study</span></div>
         </div>
         <div class="cover-copy">
@@ -41,15 +47,15 @@
         <div class="lookbook-heading"><p class="concept-kicker">Chapter I / The permanent edit</p><h2 id="lookbook-title">Three pieces.<br><em>Endless departures.</em></h2><p>Built as a small, exact wardrobe: tactile merino, weighty cotton and considered proportions that travel easily.</p></div>
         <div class="lookbook-grid">
           <article class="lookbook-product lookbook-product--lead">
-            <div class="lookbook-media"><img src="public/media/product-merino-navy.jpg" alt="Navy LUNO PIENO merino sweater" loading="lazy"><span class="lookbook-number">01</span><button type="button">Quick add</button></div>
+            <div class="lookbook-media"><img class="luno-theme-image" src="public/media/product-merino-navy.jpg" alt="Navy LUNO PIENO merino sweater" loading="lazy"><span class="lookbook-number">01</span><button type="button">Quick add</button></div>
             <div class="lookbook-meta"><div><h3>The Merino Crew</h3><p>Navy · Made in Switzerland</p></div><span>CHF —</span></div>
           </article>
           <article class="lookbook-product lookbook-product--small">
-            <div class="lookbook-media"><img src="public/media/product-essential-tees.jpg" alt="White and navy LUNO PIENO essential tees" loading="lazy"><span class="lookbook-number">02</span><button type="button">Quick add</button></div>
+            <div class="lookbook-media"><img class="luno-theme-image" src="public/media/product-essential-tees.jpg" alt="White and navy LUNO PIENO essential tees" loading="lazy"><span class="lookbook-number">02</span><button type="button">Quick add</button></div>
             <div class="lookbook-meta"><div><h3>The Essential Tee</h3><p>White &amp; navy · Premium cotton</p></div><span>CHF —</span></div>
           </article>
           <article class="lookbook-product lookbook-product--wide">
-            <div class="lookbook-media"><img src="public/media/product-merino-forest.jpg" alt="Forest green LUNO PIENO merino sweater" loading="lazy"><span class="lookbook-number">03</span><button type="button">Quick add</button></div>
+            <div class="lookbook-media"><img class="luno-theme-image" src="public/media/product-merino-forest.jpg" alt="Forest green LUNO PIENO merino sweater" loading="lazy"><span class="lookbook-number">03</span><button type="button">Quick add</button></div>
             <div class="lookbook-meta"><div><h3>The Merino Crew</h3><p>Forest · Made in Switzerland</p></div><span>CHF —</span></div>
           </article>
         </div>
@@ -58,22 +64,22 @@
       <section class="atelier" id="craft" aria-labelledby="atelier-title">
         <div class="atelier-type" aria-hidden="true">L/P</div>
         <div class="atelier-copy"><p class="concept-kicker">Chapter II / Made close to home</p><h2 id="atelier-title">The luxury<br>of knowing <em>how.</em></h2><p>Fewer pieces. Better materials. Makers we know. Knitwear is developed in Switzerland; cotton essentials are cut and finished by experienced hands in northern Portugal.</p><a class="concept-button concept-button--light" href="#craft">Discover our making</a></div>
-        <figure class="atelier-image"><img src="public/media/craft-sewing-detail.jpg" alt="Close-up of a LUNO PIENO garment being sewn" loading="lazy"><figcaption><span>Hands at work</span><span>Portugal / 2025</span></figcaption></figure>
+        <figure class="atelier-image"><img class="luno-theme-image" src="public/media/craft-sewing-detail.jpg" alt="Close-up of a LUNO PIENO garment being sewn" loading="lazy"><figcaption><span>Hands at work</span><span>Portugal / 2025</span></figcaption></figure>
       </section>
 
       <section class="postcards" id="journal" aria-labelledby="postcards-title">
         <div class="postcards-heading"><p class="concept-kicker">Chapter III / Field notes</p><h2 id="postcards-title">Postcards from<br><em>elsewhere.</em></h2><a class="concept-button" href="#journal">View all stories</a></div>
-        <article class="postcard postcard--main"><img src="public/media/editorial-riviera-scooter.jpg" alt="LUNO PIENO on the Riviera beside a scooter" loading="lazy"><div><span>01 / Riviera</span><h3>Days without plans.</h3></div></article>
-        <article class="postcard postcard--sunset"><img src="public/media/editorial-sunset-terrace.jpg" alt="Sunset on the Mediterranean coast" loading="lazy"><div><span>02 / After light</span><h3>The long way home.</h3></div></article>
-        <article class="postcard postcard--community"><img src="public/media/community-white-tee.jpg" alt="Community member wearing the LUNO PIENO essential tee" loading="lazy"><div><span>03 / Worn well</span><h3>One piece, her way.</h3></div></article>
+        <article class="postcard postcard--main"><img class="luno-theme-image" src="public/media/editorial-riviera-scooter.jpg" alt="LUNO PIENO on the Riviera beside a scooter" loading="lazy"><div><span>01 / Riviera</span><h3>Days without plans.</h3></div></article>
+        <article class="postcard postcard--sunset"><img class="luno-theme-image" src="public/media/editorial-sunset-terrace.jpg" alt="Sunset on the Mediterranean coast" loading="lazy"><div><span>02 / After light</span><h3>The long way home.</h3></div></article>
+        <article class="postcard postcard--community"><img class="luno-theme-image" src="public/media/community-white-tee.jpg" alt="Community member wearing the LUNO PIENO essential tee" loading="lazy"><div><span>03 / Worn well</span><h3>One piece, her way.</h3></div></article>
       </section>
 
       <section class="signature" aria-labelledby="signature-title">
-        <div class="signature-image"><img src="public/media/community-navy-knit.jpg" alt="Woman wearing navy LUNO PIENO knitwear on a boat" loading="lazy"></div>
+        <div class="signature-image"><img class="luno-theme-image" src="public/media/community-navy-knit.jpg" alt="Woman wearing navy LUNO PIENO knitwear on a boat" loading="lazy"></div>
         <div class="signature-copy"><p class="concept-kicker">The LUNO PIENO point of view</p><h2 id="signature-title">Precision,<br><em>without stiffness.</em></h2><p>Clothes should make room for living. Our pieces move between mountains and coastlines, dinners and departures, becoming more personal with every wear.</p><a class="concept-button concept-button--dark" href="#top">Read our story</a></div>
       </section>
 
-      <section class="concept-newsletter" aria-labelledby="newsletter-title"><p class="concept-kicker">Notes from a life fully lived</p><h2 id="newsletter-title">New chapters,<br><em>occasionally.</em></h2><form class="concept-form"><label class="sr-only" for="concept-email">Email address</label><input id="concept-email" type="email" placeholder="Email address"><button type="submit">Join the journal <span aria-hidden="true">↗</span></button></form></section>
+      <section class="concept-newsletter" aria-labelledby="newsletter-title"><p class="concept-kicker">Notes from a life fully lived</p><h2 id="newsletter-title">Stay in<br><em>our orbit.</em></h2><form class="concept-form"><label class="sr-only" for="concept-email">Email address</label><input id="concept-email" type="email" placeholder="Email address"><button type="submit">Join the journal <span aria-hidden="true">↗</span></button></form></section>
     </main>
 
     <footer class="concept-footer">
