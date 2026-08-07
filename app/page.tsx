@@ -82,8 +82,8 @@ export default function Home() {
         <section className="lookbook" id="collection" aria-labelledby="lookbook-title">
           <div className="lookbook-heading">
             <p className="concept-kicker">Chapter I / The permanent edit</p>
-            <h2 id="lookbook-title">Three pieces.<br /><em>Endless departures.</em></h2>
-            <p>Built as a small, exact wardrobe: tactile merino, weighty cotton and considered proportions that travel easily.</p>
+            <h2 id="lookbook-title">Selected essentials.<br /><em>Made to go further.</em></h2>
+            <p>A considered selection of tactile merino, weighty cotton and refined everyday pieces designed to travel easily.</p>
           </div>
           <div className="lookbook-grid">
             {products.map((product, index) => (
